@@ -50,7 +50,7 @@ const gameflow = (() => {
   var player = true;
   var turn_count = 0;
   const setMove = (cell) => {
-    let cell_index = cell.id.replace('cell-', '');
+    let cell_index = cell.id[5];
     if (!gameboard.isEmpty(cell_index)) {
       console.log(`Cell ${cell_index} is taken`);
       return;
