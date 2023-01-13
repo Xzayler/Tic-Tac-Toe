@@ -68,11 +68,13 @@ const gameflow = (() => {
       return;
     }
     if (gameboard.isGameOver()) {
-      console.log(`Winner is ${player_symbol}`);
+      winner_message.innerHTML = `${player_symbol} Wins`;
+      end_message.classList = 'end-message';
     }
-    // if (turn_count == 9) {
-    //   console.log("It's a draw");
-    // }
+    if (turn_count == 9) {
+      winner_message.innerHTML = "It's a Draw";
+      end_message.classList = 'end-message';
+    }
   };
 
   // Button to reset
@@ -84,6 +86,7 @@ const gameflow = (() => {
     //set player to 'x' player
     player = true;
     turn_count = 0;
+    end_message.classList.add('hide');
   };
 
   return {
@@ -98,3 +101,6 @@ cells.forEach((cell) => {
   cell.addEventListener('click', (e) => gameflow.setMove(e.target));
 });
 document.querySelector('.reset').addEventListener('click', gameflow.reset);
+
+const end_message = document.querySelector('.end-message');
+const winner_message = end_message.querySelector('p');
