@@ -70,12 +70,16 @@ const gameflow = (() => {
     if (gameboard.isGameOver()) {
       console.log(`Winner is ${player_symbol}`);
     }
+    // if (turn_count == 9) {
+    //   console.log("It's a draw");
+    // }
   };
 
   // Button to reset
   const reset = () => {
-    cells.forEach((cell) => {
+    cells.forEach((cell, index) => {
       cell.classList = 'cell';
+      gameboard.setCell(index, 'empty');
     });
     //set player to 'x' player
     player = true;
