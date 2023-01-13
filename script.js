@@ -19,9 +19,29 @@ const gameboard = (() => {
     return board[cell_index] == 'empty';
   };
 
+  const isGameOver = () => {
+    if (
+      //3 in a row
+      (board[0] == board[1] && board[0] == board[2] && board[0] != 'empty') ||
+      (board[3] == board[4] && board[3] == board[5] && board[3] != 'empty') ||
+      (board[6] == board[7] && board[6] == board[8] && board[6] != 'empty') ||
+      //3 in a column
+      (board[0] == board[3] && board[0] == board[6] && board[0] != 'empty') ||
+      (board[1] == board[4] && board[1] == board[7] && board[1] != 'empty') ||
+      (board[2] == board[5] && board[2] == board[8] && board[2] != 'empty') ||
+      //3 diagonally
+      (board[0] == board[4] && board[0] == board[8] && board[0] != 'empty') ||
+      (board[2] == board[4] && board[2] == board[6] && board[2] != 'empty')
+    ) {
+      return true;
+    }
+    return false;
+  };
+
   return {
     isEmpty,
     setCell,
+    isGameOver,
   };
 })();
 
@@ -40,9 +60,16 @@ const gameflow = (() => {
 
     cell.classList.add(player_symbol);
     gameboard.setCell(cell_index, player_symbol);
-    player = !player;
     ++turn_count;
     console.log(turn_count);
+    player = !player;
+
+    if (turn_count < 5) {
+      return;
+    }
+    if (gameboard.isGameOver()) {
+      console.log(`Winner is ${player_symbol}`);
+    }
   };
 
   // Button to reset
