@@ -27,7 +27,7 @@ const gameboard = (() => {
 
 const gameflow = (() => {
   // true signifies crosses and flase is naughts
-  var turn = true;
+  var player = true;
   const setMove = (cell) => {
     let cell_index = cell.id.replace('cell-', '');
     if (!gameboard.isEmpty(cell_index)) {
@@ -35,11 +35,11 @@ const gameflow = (() => {
       return;
     }
 
-    let player = turn ? 'cross' : 'naught';
+    let player_symbol = player ? 'cross' : 'naught';
 
-    cell.classList.add(player);
-    gameboard.setCell(cell_index, player);
-    turn = !turn;
+    cell.classList.add(player_symbol);
+    gameboard.setCell(cell_index, player_symbol);
+    player = !player;
   };
 
   // Button to reset
@@ -47,8 +47,8 @@ const gameflow = (() => {
     cells.forEach((cell) => {
       cell.classList = 'cell';
     });
-    //set turn to 'x' player
-    turn = true;
+    //set player to 'x' player
+    player = true;
   };
 
   return {
